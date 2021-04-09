@@ -1,0 +1,32 @@
+@import "antd/dist/antd.css";
+body {
+    background-color: #32a4a8;
+  }
+  .main {
+    background-color: white; 
+    padding: 0px; 
+  }
+  .main {
+    height: 100%;
+    margin: 0 auto;
+    background-color: #32a4a8;
+    padding: 40px;
+  }
+  .loginBox {
+  background-color:#ccdbdb;
+  width: 30%;
+  border-radius: 10px;
+  margin:80px auto;
+  padding: 40px;
+}
+.login {
+    text-align: center;
+    padding: 10px 0px;
+  }
+  .form {
+    padding: 0 30px;
+  }
+.forgotPassword {
+    display:flex;
+    justify-content: space-between;
+}
