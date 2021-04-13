@@ -2,7 +2,7 @@ import React from "react";
 import { Input } from "antd";
 import "../Input/InputField.css";
 const InputField = (props) => {
-  const { type, placeholder, value, onChange } = props;
+  const { type, placeholder, value, onChange, maxLength } = props;
   return (
     <div className="input_bottom">
       <label>

@@ -1,30 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import "./../Card/Card.css";
 import {
 	Image,
 	Button,
 	Rate,
-} from "antd";
+	Modal,
+	Descriptions,
+} from "antd"
 import { ShoppingCartOutlined } from "@ant-design/icons";
-const Card = ({ item1, onClick }) => {
+const Card = ({ product, onClick }) => {
+	const [isModalVisible, setIsModalVisible] = useState(false);
+	const showModal = () => {
+		setIsModalVisible(true);
+	};
+	const handleOk = () => {
+		setIsModalVisible(false);
+	};
+	const handleCancel = () => {
+		setIsModalVisible(false);
+	};
 	return (
 		<>
-			{item1.map((x, id) => {
+			{product.map((item, id) => {
 				return (
 					<div
 						style={{ borderWidth: 2, borderColor: "black" }}
 						className="card"
 					>
-						<Image style={{ height: "100%", width: "100%" }} src={x.image} />
-						<h3 className="productname">{x.productName}</h3>
+						<Image style={{ height: "100%", width: "100%" }} src={item.image} />
+						<Modal
+							visible={isModalVisible}
+							onOk={handleOk}
+							onCancel={handleCancel}
+						>
+							<div className="modal">
+								<Descriptions
+									style={{ textAlign: "center" }}
+									title="Product Information"
+								>
+									<div style={{ flexDirection: "column" }}>
+										<h5 className="description">{item.description}</h5>
+										<h3 className="productname" style={{ color: "blue" }}>
+											${item.price}/price
+                  </h3>
+									</div>
+								</Descriptions>
+							</div>
+						</Modal>
+						<h3 onClick={showModal} className="productname">{item.productName}</h3>
 						<h3 className="productname" style={{ color: "blue" }}>
-							${x.price}/price{" "}
-							<Button onClick={() => onClick(x)} className="cart_btn">
+							${item.price}/price{" "}
+							<Button onClick={() => onClick(item)} className="cart_btn">
 								<ShoppingCartOutlined />
 							</Button>
 						</h3>
-						<p className="description">{x.description}</p>
-						<Rate className="description" style={{ fontSize: 15 }} allowHalf defaultValue={x.rate} />
+						<p className="description">{item.description}</p>
+						<Rate className="description" style={{ fontSize: 15 }} allowHalf defaultValue={item.rate} />
 					</div>
 				)
 			})

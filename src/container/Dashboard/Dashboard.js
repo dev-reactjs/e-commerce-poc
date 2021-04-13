@@ -13,11 +13,13 @@ import {
 import {
   MenuOutlined, SearchOutlined, ShoppingCartOutlined,
   UserOutlined, HomeFilled, GiftFilled, MailFilled,
-  Rate,DeleteOutlined
+  Rate, DeleteOutlined, LogoutOutlined
 } from "@ant-design/icons";
 import CategoryBox from "../../component/Checkbox/Checkbox";
 import Card from "../../component/Card/Card";
-import { useHistory } from "react-router-dom"
+import { useHistory, useLocation } from "react-router-dom"
+import { cleanUserData } from "../../Redux/action"
+import { useDispatch } from "react-redux";
 const product = [
   {
     id: 1,
@@ -92,7 +94,7 @@ const product = [
     rate: 5
   },
 ]
-function Dashboard(props) {
+const Dashboard = props => {
   const { Header, Sider, Content } = Layout;
   const { Title } = Typography
   const history = useHistory()
@@ -102,6 +104,8 @@ function Dashboard(props) {
   const [price, setPrice] = useState([])
   const [cart, setCart] = useState([])
   const [isModalVisible, setIsModalVisible] = useState('')
+  const location = useLocation()
+  const dispatch = useDispatch()
   const brandCategory = [
     {
       item: "Samsung",
@@ -121,7 +125,7 @@ function Dashboard(props) {
       item: "1000 to 9999",
     },
     {
-      item: "9999 to 29999",
+      item: "9999 to 19999",
     },
     {
       item: "20000 to 29999",
@@ -179,13 +183,13 @@ function Dashboard(props) {
     setPrice(value);
   }
   const addCart = (item) => {
+    console.log("item========>", item)
     let temp = localStorage.getItem("cart")
     let cartItems = JSON.parse(temp)
     let newItems = [item]
     console.log("newItems", newItems)
-    // let temp2 = newItems.concat(cartItems.filter((item) => newItems.indexOf(item) < 0))
-    // cartItems = temp2
-    cartItems = newItems
+    let temp2 = newItems.concat(cartItems?.filter((item) => newItems.indexOf(item) < 0))
+    cartItems = temp2
     localStorage.setItem("cart", JSON.stringify(cartItems))
     setCart(cartItems)
   }
@@ -196,6 +200,13 @@ function Dashboard(props) {
     localStorage.setItem("cart", JSON.stringify(cartItems))
     setCart(cartItems)
   };
+  const Logout = async () => {
+    var localStatus = await localStorage.removeItem('token')
+    dispatch(cleanUserData())
+    setTimeout(() => {
+      history.push('/Login')
+    }, 1000)
+  }
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -205,7 +216,6 @@ function Dashboard(props) {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-
   return (
     <>
       <div className="main">
@@ -226,14 +236,13 @@ function Dashboard(props) {
             onOk={handleOk}
             onCancel={handleCancel}
           >
-            <div className="modal">
+            <div style={{ flexDirection: "row" }}>
               <Title level={3}>  {
                 cart.map((item, index) => {
                   return (<div>
-                    <Image className="addTOCartImage">{item.image}</Image>
-                    <h5>{item.brand}</h5>
-                    <h6>{item.price}</h6>
-                    <p>{item.description}</p>
+                    {/* <Image className="addTOCartImage">{item.image}</Image> */}
+                    <h6>{item?.price}</h6>
+                    <h6>{item?.productName}</h6>
                     <DeleteOutlined
                       onClick={() => delToCart(index)}
                       className="delete_Icon"
@@ -244,8 +253,14 @@ function Dashboard(props) {
               </Title>
             </div>
           </Modal>
-          <ShoppingCartOutlined onClick={showModal} className="menu_icon " />
-          <UserOutlined className="menu_icon " />
+          <h3>{location?.state?.email}</h3>
+          {
+            location?.state?.logged == "auth" &&
+            <ShoppingCartOutlined onClick={showModal} className="menu_icon " />
+          }
+          <UserOutlined
+            onClick={() => Logout()}
+            className="menu_icon " />
         </Header>
         <Layout>
           <Sider className="sider ant-layout-sider">
@@ -297,8 +312,8 @@ function Dashboard(props) {
               </Carousel>
               <Content className="ContentCard">
                 <Card
-                  onClick={(item) =>addCart(item)}
-                  item1={data}
+                  onClick={(item) => location?.state?.logged ? addCart(item) : history.push('/Login')}
+                  product={data}
                 />
               </Content>
             </div>
