@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { fetchRegister } from "../../ApiCaller"
 import Login from '../Login/Login';
 import onSubmitValidation from "../../Utils/onSubmitValidation/onSignupValidation"
-import {validateName,validateEmail,validateMobileNo,validatePassword} from "../../Utils/Validation/Validation"
+import { validateName, validateEmail, validateMobileNo, validatePassword } from "../../Utils/Validation/Validation"
 function Signup(props) {
 	const { Title } = Typography;
 	const history = useHistory();
@@ -29,48 +29,48 @@ function Signup(props) {
 	});
 	const onChangeValue = (e, text) => {
 		setState({ ...state, [text]: e.target.value })
-		if(text ===  'fname'){
+		if (text === 'fname') {
 			const nameError = validateName(e.target.value)
-			if(!nameError.status){
-				error.fname =  nameError.error
+			if (!nameError.status) {
+				error.fname = nameError.error
 			}
-		else if (nameError.status){
-			 error.fname =  "" 
-	  	}
-  	}
-		if(text ===  'email'){
+			else if (nameError.status) {
+				error.fname = ""
+			}
+		}
+		if (text === 'email') {
 			const emailError = validateEmail(e.target.value)
-			if(!emailError.status){
-				error.email =  emailError.error
+			if (!emailError.status) {
+				error.email = emailError.error
 			}
-		else if (emailError.status){
-			 error.email =  "" 
-	  	}
-  	}
-		if(text ===  'phoneNumber'){
+			else if (emailError.status) {
+				error.email = ""
+			}
+		}
+		if (text === 'phoneNumber') {
 			const phoneError = validateMobileNo(e.target.value)
-			if(!phoneError.status){
-				error.phoneNumber =  phoneError.error
+			if (!phoneError.status) {
+				error.phoneNumber = phoneError.error
 			}
-		else if (phoneError.status){
-			 error.phoneNumber =  "" 
-	  	}
-  	}	
-		if(text ===  'password'){
+			else if (phoneError.status) {
+				error.phoneNumber = ""
+			}
+		}
+		if (text === 'password') {
 			const password = validatePassword(e.target.value)
-			if(!password.status){
-				error.password =  password.error
+			if (!password.status) {
+				error.password = password.error
 			}
-		else if (password.status){
-			 error.password =  "" 
-	  	}
-  	}	
+			else if (password.status) {
+				error.password = ""
+			}
+		}
 	}
 	useEffect(() => {
 		if (Signup.register.token) {
 			history.push('/Login')
 			alert("Registration Sucessfully")
-		} else {
+		} if (Signup.register.token) {
 			alert("Registration failed")
 		}
 	}, [Signup.register]);
@@ -87,9 +87,9 @@ function Signup(props) {
 			dispatch(fetchRegister(userData, "post"))
 			console.log("body======>", userData)
 		}
-   else {
-		 alert(validationStatus.message)
-	 }
+		else {
+			alert(validationStatus.message)
+		}
 		// <Validation data = {userData}/>
 		// if (fname != '') {
 		// 	if (email != '') {

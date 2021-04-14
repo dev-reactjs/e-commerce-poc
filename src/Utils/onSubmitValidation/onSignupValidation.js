@@ -52,5 +52,4 @@ const onSignUpSubmit = (data) => {
 		return { isError: false };
 	}
 }
-
 export default onSignUpSubmit;

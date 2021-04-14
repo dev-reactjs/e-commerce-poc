@@ -35,20 +35,19 @@ export const validatePassword = (password) => {
 	var passwordRegex = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
 	password = password.trim();
 
-	// if (password == "" || password == undefined || password == null) {
-	//     return { status: false, error: 'Please enter valid password.' }
-	// }
+	if (password == "" || password == undefined || password == null) {
+	    return { status: false, error: 'Please enter valid password.' }
+	}
 	// else if (!passwordRegex.test(password)) {
 	//     return { status: false, error: 'Passwor must contain atleast 8 characters, which includes atleast 1 capital alphabet, 1 small aplabet, 1 number and 1 special character.' };
 	// }
-	// else if (password.length < 8) {
-	//     return { status: false, error: 'Passwor must contain atleast 8 characters.' };
-	// }
-	// else {
-	//     return { status: true, error: '' }
-	// }
+	else if (password.length < 8) {
+	    return { status: false, error: 'Passwor must contain atleast 8 characters.' };
+	}
+	else {
+	    return { status: true, error: '' }
+	}
 }
-
 /* To validate Mobile No. */
 export const validateMobileNo = (mobileNo) => {
 	var numberRegex = /^[1-9][0-9]{9,12}$/;
@@ -61,7 +60,6 @@ export const validateMobileNo = (mobileNo) => {
 		return { status: true, error: '' }
 	}
 }
-
 export const requireEmail = userId => {
 	let userEmail = userId.toString().trim()
 	if (userEmail == '' || userEmail == undefined || userEmail == null) {
@@ -69,7 +67,6 @@ export const requireEmail = userId => {
 	}
 	else return { status: true, error: '' }
 }
-
 /* To Handle Password validation on Login */
 export const requirePassword = password => {
 	let userPassword = password.toString().trim()

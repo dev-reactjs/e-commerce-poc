@@ -278,13 +278,13 @@ const Dashboard = props => {
               </Title>
               <CategoryBox
                 onChange={(value) => onChangeBrand(value)}
-                item1={brandCategory} />
+                checkboxFilter={brandCategory} />
               <Title className="category" style={{ color: "green" }} level={4}>
                 Price
               </Title>
               <CategoryBox
                 onChange={(value) => onChangePrice(value)}
-                item1={priceCategory} />
+                checkboxFilter={priceCategory} />
             </div>
             <div className="productContent">
               <Carousel autoplay>

@@ -4,30 +4,32 @@ import Signup from "./container/Signup/Signup"
 import ForgotPassword from "./container/ForgotPassword/ForgotPassword"
 import RecoverPassword from "./container/RecoverPassword/RecoverPasswrod"
 import Dashboard from "./container/Dashboard/Dashboard"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useLocation } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./Redux/store"
+import PrivateRoute from "./container/Routes/PrivateRoute";
+import PublicRoute from "./container/Routes/PublicRoutes"
 function App() {
 	return (
 		<Provider store={store}>
 			<Router>
 				<div>
-					<Switch>
+					<Switch> 	
+					<PrivateRoute exact path="/" component={Dashboard} >
+				  <Dashboard/>
+					</PrivateRoute>
 						<Route path="/Login">
 							<Login />
 						</Route>
-						<Route path="/Signup">
-							<Signup />
-						</Route>
-						<Route path="/ForgotPassword">
+						<PublicRoute  restricted={true} path="/Signup"  component={Signup} exact>
+							<Signup/>
+						</PublicRoute>
+						<PublicRoute  restricted={false} path="/ForgotPassword">
 							<ForgotPassword />
-						</Route>
-						<Route path="/RecoverPassword">
+						</PublicRoute>
+						<PublicRoute   restricted={false} path="/RecoverPassword">
 							<RecoverPassword />
-						</Route>
-						<Route exact path="/">
-							<Dashboard />
-						</Route>
+						</PublicRoute>
 					</Switch>
 				</div>
 			</Router>
@@ -42,4 +44,4 @@ export default App;
 
 //"Signup Credential"
 //eve.holt@reqres.in
-//pistol
+//pistol   
