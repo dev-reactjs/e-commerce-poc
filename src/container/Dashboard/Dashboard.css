@@ -1,0 +1,79 @@
+@import "antd/dist/antd.css";
+.main {
+  background-color: white;
+  padding: 0px;
+}
+.ant-layout-sider {
+  flex: 0 0 82px !important;
+  min-width: 30px !important;
+  width: 30px !important;
+}
+.header {
+  width: 100%;
+  background-color: #3f51b5;
+  min-height: 64px;
+  padding: 0 20px;
+  display: flex;
+}
+.menu_icon {
+  font-size: 20px;
+  margin: 20px 30px;
+  width: 60px;
+  cursor: pointer;
+}
+.serachbar {
+    /* margin:20px 30px; */
+    padding: 10px 50px;
+  }
+  .input {
+    width: 40%;
+  }
+  .ant-layout-sider {
+    flex: 0 0 82px !important;
+    min-width: 30px !important;
+    width: 30px !important;
+  }
+  .sidebar {
+    display: flex;
+    height: 100%;
+  }
+  .ant-layout-sider {
+    background-color: #cbd6ce;
+  }
+  .icon {
+    font-size: 20px;
+    color: #08c;
+    margin: 20;
+    display: flex;
+    width: 100px;
+  }
+  .iconPosition {
+    padding: 15px 8px;
+  }
+  .categoryContent {
+    width: 20%;
+    background-color: white;
+  }
+  .category {
+    margin: 20px 20px;
+  }
+  .productContent {
+    width: 80%;
+  }
+  .carsoul {
+    height: 180px;
+    line-height: 180px;
+    text-align: center;
+    width: 100%;
+    background: black;
+    object-fit:fill;
+  }
+  .ContentCard {
+    display: flex;
+    flex-wrap: wrap;
+    border-width: 2px;
+  }
+  .addTOCartImage {
+    height: 100%;
+    width: 100%;
+  }
